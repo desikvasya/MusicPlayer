@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TracksViewController: UIViewController, UITableViewDataSource {
+final class TracksViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     private let tableView = UITableView()
     private let musicData = MusicData.shared
@@ -18,6 +18,7 @@ final class TracksViewController: UIViewController, UITableViewDataSource {
         
         tableView.register(TracksViewCell.self, forCellReuseIdentifier: "TracksViewCell")
         tableView.dataSource = self
+        tableView.delegate = self
         view.backgroundColor = .white
         view.addSubview(tableView)
         
@@ -30,16 +31,26 @@ final class TracksViewController: UIViewController, UITableViewDataSource {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
+        tableView.allowsSelection = true
+        
         tableView.reloadData()
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return musicData.tracks.count
     }
-}
-
-extension TracksViewController {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let position = indexPath.row
+        
+        let playerVC = PlayerViewController()
+        playerVC.postition = position
+        playerVC.tracks = musicData.tracks
+        
+        present(playerVC, animated: true)
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "TracksViewCell"
