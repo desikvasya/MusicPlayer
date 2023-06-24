@@ -9,21 +9,41 @@
 /* Begin PBXBuildFile section */
 		926181012A455B790075C8F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926181002A455B790075C8F9 /* AppDelegate.swift */; };
 		926181032A455B790075C8F9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926181022A455B790075C8F9 /* SceneDelegate.swift */; };
-		926181052A455B790075C8F9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926181042A455B790075C8F9 /* ViewController.swift */; };
-		926181082A455B790075C8F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 926181062A455B790075C8F9 /* Main.storyboard */; };
 		9261810A2A455B790075C8F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 926181092A455B790075C8F9 /* Assets.xcassets */; };
 		9261810D2A455B790075C8F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9261810B2A455B790075C8F9 /* LaunchScreen.storyboard */; };
+		926181192A4560FE0075C8F9 /* Imagine Dragons - Warriors.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 926181182A4560FE0075C8F9 /* Imagine Dragons - Warriors.mp3 */; };
+		9261811B2A4561A40075C8F9 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9261811A2A4561A40075C8F9 /* Track.swift */; };
+		9261811E2A45622E0075C8F9 /* TracksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9261811D2A45622E0075C8F9 /* TracksViewController.swift */; };
+		926181202A45623B0075C8F9 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9261811F2A45623B0075C8F9 /* PlayerViewController.swift */; };
+		926181222A4565870075C8F9 /* TracksViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926181212A4565870075C8F9 /* TracksViewCell.swift */; };
+		926181242A46C3FF0075C8F9 /* Kansas - Carry On Wayward Son.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 926181232A46C3FF0075C8F9 /* Kansas - Carry On Wayward Son.mp3 */; };
+		926181262A46C4860075C8F9 /* Alice Merton - No Roots.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 926181252A46C4860075C8F9 /* Alice Merton - No Roots.mp3 */; };
+		926181282A46C5440075C8F9 /* One Republic - Counting Stars.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 926181272A46C5440075C8F9 /* One Republic - Counting Stars.mp3 */; };
+		9261812A2A46C5DD0075C8F9 /* One Direction - Another World.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 926181292A46C5DD0075C8F9 /* One Direction - Another World.mp3 */; };
+		9261812E2A46D71D0075C8F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9261812D2A46D71D0075C8F9 /* Main.storyboard */; };
+		926181312A46D8880075C8F9 /* TimeFormatExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926181302A46D8880075C8F9 /* TimeFormatExtension.swift */; };
+		926181342A46DD370075C8F9 /* MusicData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926181332A46DD370075C8F9 /* MusicData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		926180FD2A455B790075C8F9 /* MusicPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		926181002A455B790075C8F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		926181022A455B790075C8F9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		926181042A455B790075C8F9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		926181072A455B790075C8F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		926181092A455B790075C8F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9261810C2A455B790075C8F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9261810E2A455B790075C8F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		926181182A4560FE0075C8F9 /* Imagine Dragons - Warriors.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Imagine Dragons - Warriors.mp3"; sourceTree = "<group>"; };
+		9261811A2A4561A40075C8F9 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		9261811D2A45622E0075C8F9 /* TracksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksViewController.swift; sourceTree = "<group>"; };
+		9261811F2A45623B0075C8F9 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
+		926181212A4565870075C8F9 /* TracksViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksViewCell.swift; sourceTree = "<group>"; };
+		926181232A46C3FF0075C8F9 /* Kansas - Carry On Wayward Son.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Kansas - Carry On Wayward Son.mp3"; sourceTree = "<group>"; };
+		926181252A46C4860075C8F9 /* Alice Merton - No Roots.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Alice Merton - No Roots.mp3"; sourceTree = "<group>"; };
+		926181272A46C5440075C8F9 /* One Republic - Counting Stars.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "One Republic - Counting Stars.mp3"; sourceTree = "<group>"; };
+		926181292A46C5DD0075C8F9 /* One Direction - Another World.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "One Direction - Another World.mp3"; sourceTree = "<group>"; };
+		9261812D2A46D71D0075C8F9 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		926181302A46D8880075C8F9 /* TimeFormatExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatExtension.swift; sourceTree = "<group>"; };
+		926181332A46DD370075C8F9 /* MusicData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +76,65 @@
 		926180FF2A455B790075C8F9 /* MusicPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				9261811A2A4561A40075C8F9 /* Track.swift */,
 				926181002A455B790075C8F9 /* AppDelegate.swift */,
 				926181022A455B790075C8F9 /* SceneDelegate.swift */,
-				926181042A455B790075C8F9 /* ViewController.swift */,
-				926181062A455B790075C8F9 /* Main.storyboard */,
-				926181092A455B790075C8F9 /* Assets.xcassets */,
 				9261810B2A455B790075C8F9 /* LaunchScreen.storyboard */,
 				9261810E2A455B790075C8F9 /* Info.plist */,
+				926181212A4565870075C8F9 /* TracksViewCell.swift */,
+				9261812F2A46D8630075C8F9 /* Helpers */,
+				926181322A46DD270075C8F9 /* Data */,
+				9261811C2A45621A0075C8F9 /* ViewControllers */,
+				926181162A4560620075C8F9 /* Resources */,
+				9261812D2A46D71D0075C8F9 /* Main.storyboard */,
 			);
 			path = MusicPlayer;
+			sourceTree = "<group>";
+		};
+		926181162A4560620075C8F9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				926181092A455B790075C8F9 /* Assets.xcassets */,
+				926181172A4560A60075C8F9 /* Music */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		926181172A4560A60075C8F9 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				926181182A4560FE0075C8F9 /* Imagine Dragons - Warriors.mp3 */,
+				926181232A46C3FF0075C8F9 /* Kansas - Carry On Wayward Son.mp3 */,
+				926181252A46C4860075C8F9 /* Alice Merton - No Roots.mp3 */,
+				926181272A46C5440075C8F9 /* One Republic - Counting Stars.mp3 */,
+				926181292A46C5DD0075C8F9 /* One Direction - Another World.mp3 */,
+			);
+			path = Music;
+			sourceTree = "<group>";
+		};
+		9261811C2A45621A0075C8F9 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				9261811D2A45622E0075C8F9 /* TracksViewController.swift */,
+				9261811F2A45623B0075C8F9 /* PlayerViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		9261812F2A46D8630075C8F9 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				926181302A46D8880075C8F9 /* TimeFormatExtension.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		926181322A46DD270075C8F9 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				926181332A46DD370075C8F9 /* MusicData.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,9 +195,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9261812A2A46C5DD0075C8F9 /* One Direction - Another World.mp3 in Resources */,
+				926181242A46C3FF0075C8F9 /* Kansas - Carry On Wayward Son.mp3 in Resources */,
 				9261810D2A455B790075C8F9 /* LaunchScreen.storyboard in Resources */,
+				9261812E2A46D71D0075C8F9 /* Main.storyboard in Resources */,
+				926181192A4560FE0075C8F9 /* Imagine Dragons - Warriors.mp3 in Resources */,
 				9261810A2A455B790075C8F9 /* Assets.xcassets in Resources */,
-				926181082A455B790075C8F9 /* Main.storyboard in Resources */,
+				926181262A46C4860075C8F9 /* Alice Merton - No Roots.mp3 in Resources */,
+				926181282A46C5440075C8F9 /* One Republic - Counting Stars.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,23 +213,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				926181052A455B790075C8F9 /* ViewController.swift in Sources */,
 				926181012A455B790075C8F9 /* AppDelegate.swift in Sources */,
 				926181032A455B790075C8F9 /* SceneDelegate.swift in Sources */,
+				9261811B2A4561A40075C8F9 /* Track.swift in Sources */,
+				926181222A4565870075C8F9 /* TracksViewCell.swift in Sources */,
+				9261811E2A45622E0075C8F9 /* TracksViewController.swift in Sources */,
+				926181342A46DD370075C8F9 /* MusicData.swift in Sources */,
+				926181202A45623B0075C8F9 /* PlayerViewController.swift in Sources */,
+				926181312A46D8880075C8F9 /* TimeFormatExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		926181062A455B790075C8F9 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				926181072A455B790075C8F9 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		9261810B2A455B790075C8F9 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -292,7 +364,6 @@
 				INFOPLIST_FILE = MusicPlayer/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -320,7 +391,6 @@
 				INFOPLIST_FILE = MusicPlayer/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
