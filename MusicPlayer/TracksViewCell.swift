@@ -7,6 +7,8 @@
 
 import UIKit
 
+// MARK: - Ячейки для песен
+
 final class TracksViewCell: UITableViewCell {
     
     var titleLabel: UILabel! // Информация о треке (Название + Исполнитель)

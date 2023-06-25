@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - Сущность для работы с треком
+
 struct Track {
     let title: String
     let artist: String

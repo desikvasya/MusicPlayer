@@ -7,11 +7,12 @@
 
 import UIKit
 
+// MARK: - Список всех треков
+
 final class TracksViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     private let tableView = UITableView()
     private let musicData = MusicData.shared
-
     
     override func viewDidLoad() {
         super.viewDidLoad()

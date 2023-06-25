@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - Список песен, куда можно добавлять новые треки и менять информацию о существующих
+
 class MusicData {
     static let shared = MusicData() 
     

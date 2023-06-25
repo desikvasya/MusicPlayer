@@ -5,7 +5,10 @@
 //  Created by Denis on 24.06.2023.
 //
 
+
 import Foundation
+
+// MARK: - Расширение для отображения длительности песни в формате 00:00 (минуты и секунды)
 
 extension TimeInterval {
     var formattedDuration: String {
