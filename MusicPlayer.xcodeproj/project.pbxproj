@@ -76,6 +76,7 @@
 		926180FF2A455B790075C8F9 /* MusicPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				9261810E2A455B790075C8F9 /* Info.plist */,
 				9261811A2A4561A40075C8F9 /* Track.swift */,
 				926181212A4565870075C8F9 /* TracksViewCell.swift */,
 				9261812F2A46D8630075C8F9 /* Helpers */,
@@ -138,7 +139,6 @@
 			children = (
 				926181002A455B790075C8F9 /* AppDelegate.swift */,
 				926181022A455B790075C8F9 /* SceneDelegate.swift */,
-				9261810E2A455B790075C8F9 /* Info.plist */,
 				9261810B2A455B790075C8F9 /* LaunchScreen.storyboard */,
 				9261812D2A46D71D0075C8F9 /* Main.storyboard */,
 			);
@@ -372,8 +372,7 @@
 				INFOPLIST_FILE = MusicPlayer/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -399,8 +398,7 @@
 				INFOPLIST_FILE = MusicPlayer/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
