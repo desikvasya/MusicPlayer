@@ -18,9 +18,13 @@ final class PlayerViewController: UIViewController {
     
     public var postition: Int = 0
     public var tracks: [Track] = []
+    private var progressView: UIProgressView!
+    
     
     var player: AVAudioPlayer?
     var holder: UIView! = UIView()
+    var progressUpdateTimer: Timer?
+    
     
     // MARK: - View Lifecycle
     
@@ -32,15 +36,29 @@ final class PlayerViewController: UIViewController {
         setupUI()
     }
     
-    // MARK: UI Setup
+    // MARK: - UI Setup
     
     private func setupUI() {
         view.addSubview(holder)
         holder.addSubview(songLabel)
         holder.addSubview(artistLabel)
+        
         holder.addSubview(playPauseButton)
         holder.addSubview(previousTrackButton)
         holder.addSubview(nextTrackButton)
+        
+        holder.addSubview(songDurationLabel)
+        holder.addSubview(currentTimeLabel)
+        
+        
+        // ProgressView
+        progressView = UIProgressView(progressViewStyle: .default)
+        
+        let veryLightGrey = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 0.5)
+        progressView.trackTintColor = veryLightGrey
+        progressView.progressTintColor = .systemBlue
+        
+        holder.addSubview(progressView)
         
         holder.translatesAutoresizingMaskIntoConstraints = false
         songLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -48,6 +66,9 @@ final class PlayerViewController: UIViewController {
         playPauseButton.translatesAutoresizingMaskIntoConstraints = false
         previousTrackButton.translatesAutoresizingMaskIntoConstraints = false
         nextTrackButton.translatesAutoresizingMaskIntoConstraints = false
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        songDurationLabel.translatesAutoresizingMaskIntoConstraints = false
+        currentTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             holder.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -55,21 +76,32 @@ final class PlayerViewController: UIViewController {
             holder.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             holder.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             
-            
             songLabel.centerXAnchor.constraint(equalTo: holder.centerXAnchor),
-            songLabel.centerYAnchor.constraint(equalTo: holder.centerYAnchor),
+            songLabel.centerYAnchor.constraint(equalTo: holder.centerYAnchor, constant: 50),
             
             artistLabel.centerXAnchor.constraint(equalTo: holder.centerXAnchor),
             artistLabel.topAnchor.constraint(equalTo: songLabel.bottomAnchor, constant: 10),
             
             playPauseButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            playPauseButton.topAnchor.constraint(equalTo: artistLabel.bottomAnchor, constant: 130),
+            playPauseButton.topAnchor.constraint(equalTo: artistLabel.bottomAnchor, constant: 120),
             
             nextTrackButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 50),
-            nextTrackButton.topAnchor.constraint(equalTo: artistLabel.bottomAnchor, constant: 130),
+            nextTrackButton.topAnchor.constraint(equalTo: artistLabel.bottomAnchor, constant: 120),
             
             previousTrackButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -50),
-            previousTrackButton.topAnchor.constraint(equalTo: artistLabel.bottomAnchor, constant: 130)
+            previousTrackButton.topAnchor.constraint(equalTo: artistLabel.bottomAnchor, constant: 120),
+            
+            progressView.centerXAnchor.constraint(equalTo: holder.centerXAnchor),
+            progressView.topAnchor.constraint(equalTo: artistLabel.bottomAnchor, constant: 70),
+            progressView.leadingAnchor.constraint(equalTo: holder.leadingAnchor, constant: 20),
+            progressView.trailingAnchor.constraint(equalTo: holder.trailingAnchor, constant: -20),
+            
+            currentTimeLabel.bottomAnchor.constraint(equalTo: artistLabel.bottomAnchor, constant: 45),
+            currentTimeLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            
+            songDurationLabel.bottomAnchor.constraint(equalTo: artistLabel.bottomAnchor, constant: 45),
+            songDurationLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+            
         ])
         
         let track = tracks[postition]
@@ -80,11 +112,14 @@ final class PlayerViewController: UIViewController {
         previousTrackButton.setBackgroundImage(UIImage(systemName: "backward.end"), for: .normal)
         nextTrackButton.setBackgroundImage(UIImage(systemName: "forward.end"), for: .normal)
         
-        
         playPauseButton.addTarget(self, action: #selector(didTapPlayPauseButton), for: .touchUpInside)
         previousTrackButton.addTarget(self, action: #selector(didTapPreviousTrackButton), for: .touchUpInside)
         nextTrackButton.addTarget(self, action: #selector(didTapNextTrackButton), for: .touchUpInside)
+        
+        configureProgressView()
+        startProgressUpdateTimer()
     }
+    
     
     // MARK: - Components
     
@@ -102,6 +137,23 @@ final class PlayerViewController: UIViewController {
         label.textColor = .black
         return label
     }()
+    
+    private let songDurationLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .black
+        return label
+    }()
+    
+    private let currentTimeLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .black
+        return label
+    }()
+    
     
     let playPauseButton = UIButton()
     let previousTrackButton = UIButton()
@@ -137,8 +189,47 @@ final class PlayerViewController: UIViewController {
         }
     }
     
+    private func configureProgressView() {
+        guard let player = player else {
+            return
+        }
+        
+        progressView.progress = 0
+        
+        let duration = player.duration
+        let currentTime = player.currentTime
+        let progress = Float(currentTime / duration)
+        progressView.setProgress(progress, animated: true)
+        
+        songDurationLabel.text = TimeInterval.stringFromTimeInterval(duration)
+        currentTimeLabel.text = TimeInterval.stringFromTimeInterval(currentTime)
+        
+        
+    }
+    
+    private func startProgressUpdateTimer() {
+        updateProgressView() 
+        
+        progressUpdateTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
+            self?.updateProgressView()
+        }
+    }
+
+    
+    private func updateProgressView() {
+        guard let player = player else {
+            return
+        }
+        
+        let duration = player.duration
+        let currentTime = player.currentTime
+        let progress = Float(currentTime / duration)
+        progressView.setProgress(progress, animated: true)
+        
+        currentTimeLabel.text = TimeInterval.stringFromTimeInterval(currentTime)
+    }
+    
     @objc func didTapPlayPauseButton() {
-        print("Tapped")
         if let player = player {
             if player.isPlaying {
                 player.pause()
@@ -147,6 +238,7 @@ final class PlayerViewController: UIViewController {
                 player.play()
                 playPauseButton.setBackgroundImage(UIImage(systemName: "pause"), for: .normal)
             }
+            configureProgressView()
         }
     }
     
@@ -159,6 +251,7 @@ final class PlayerViewController: UIViewController {
             }
             configure()
             setupUI()
+            configureProgressView()
         }
     }
     
@@ -171,6 +264,7 @@ final class PlayerViewController: UIViewController {
             }
             configure()
             setupUI()
+            configureProgressView()
         }
     }
 }

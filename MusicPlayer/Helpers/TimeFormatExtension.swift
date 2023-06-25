@@ -17,4 +17,13 @@ extension TimeInterval {
         let seconds = totalSeconds % 60
         return String(format: "%02d:%02d", minutes, seconds)
     }
+    
+    static func stringFromTimeInterval(_ interval: TimeInterval) -> String {
+            let formatter = DateComponentsFormatter()
+            formatter.unitsStyle = .positional
+            formatter.zeroFormattingBehavior = .pad
+            formatter.allowedUnits = [.minute, .second]
+            
+            return formatter.string(from: interval) ?? ""
+        }
 }
