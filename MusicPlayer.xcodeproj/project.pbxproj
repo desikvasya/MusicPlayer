@@ -23,6 +23,7 @@
 		9261812E2A46D71D0075C8F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9261812D2A46D71D0075C8F9 /* Main.storyboard */; };
 		926181312A46D8880075C8F9 /* TimeFormatExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926181302A46D8880075C8F9 /* TimeFormatExtension.swift */; };
 		926181342A46DD370075C8F9 /* MusicData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926181332A46DD370075C8F9 /* MusicData.swift */; };
+		926181392A493B530075C8F9 /* AudioPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926181382A493B530075C8F9 /* AudioPlayerManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		9261812D2A46D71D0075C8F9 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		926181302A46D8880075C8F9 /* TimeFormatExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatExtension.swift; sourceTree = "<group>"; };
 		926181332A46DD370075C8F9 /* MusicData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicData.swift; sourceTree = "<group>"; };
+		926181382A493B530075C8F9 /* AudioPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 				926181022A455B790075C8F9 /* SceneDelegate.swift */,
 				9261810B2A455B790075C8F9 /* LaunchScreen.storyboard */,
 				9261812D2A46D71D0075C8F9 /* Main.storyboard */,
+				926181382A493B530075C8F9 /* AudioPlayerManager.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 				9261811E2A45622E0075C8F9 /* TracksViewController.swift in Sources */,
 				926181342A46DD370075C8F9 /* MusicData.swift in Sources */,
 				926181202A45623B0075C8F9 /* PlayerViewController.swift in Sources */,
+				926181392A493B530075C8F9 /* AudioPlayerManager.swift in Sources */,
 				926181312A46D8880075C8F9 /* TimeFormatExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

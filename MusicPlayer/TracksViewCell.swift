@@ -11,21 +11,25 @@ import UIKit
 
 final class TracksViewCell: UITableViewCell {
     
-    var titleLabel: UILabel! // Информация о треке (Название + Исполнитель)
-    
-    var durationLabel: UILabel!
     var fileName: String?
     
+    // Информация о треке (Название + Исполнитель)
+    var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .black
+        return label
+    }()
+    
+    var durationLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .black
+        return label
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        titleLabel = UILabel()
-        durationLabel = UILabel()
-        
-        
-        titleLabel.font = UIFont.systemFont(ofSize: 14)
-        durationLabel.font = UIFont.systemFont(ofSize: 14)
         
         contentView.addSubview(titleLabel)
         contentView.addSubview(durationLabel)

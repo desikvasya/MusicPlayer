@@ -19,11 +19,11 @@ extension TimeInterval {
     }
     
     static func stringFromTimeInterval(_ interval: TimeInterval) -> String {
-            let formatter = DateComponentsFormatter()
-            formatter.unitsStyle = .positional
-            formatter.zeroFormattingBehavior = .pad
-            formatter.allowedUnits = [.minute, .second]
-            
-            return formatter.string(from: interval) ?? ""
-        }
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .positional
+        formatter.zeroFormattingBehavior = .pad
+        formatter.allowedUnits = [.minute, .second]
+        
+        return formatter.string(from: interval) ?? ""
+    }
 }

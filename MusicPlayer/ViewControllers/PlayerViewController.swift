@@ -8,22 +8,27 @@
 import AVFoundation
 import UIKit
 
+protocol AudioPlayerManagerDelegate: AnyObject {
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool)
+}
+
 // MARK: - PlayerViewController
 
-final class PlayerViewController: UIViewController, AVAudioPlayerDelegate {
+final class PlayerViewController: UIViewController, AudioPlayerManagerDelegate {
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        didTapNextTrackButton()
+    }
     
-    // MARK: Properties
+    internal let audioPlayerManager = AudioPlayerManager.shared
     
-    private let musicData = MusicData.shared
-    
-    public var postition: Int = 0
+    public var position: Int = 0
     public var tracks: [Track] = []
     private var progressView: UIProgressView!
+    private var currentTrack: Track?
     
-    var player: AVAudioPlayer?
+    
     var holder: UIView! = UIView()
     var progressUpdateTimer: Timer?
-    
     
     // MARK: - View Lifecycle
     
@@ -34,7 +39,7 @@ final class PlayerViewController: UIViewController, AVAudioPlayerDelegate {
         configure()
         setupUI()
         
-        player?.delegate = self
+        audioPlayerManager.delegate = self
     }
     
     // MARK: - UI Setup
@@ -112,10 +117,9 @@ final class PlayerViewController: UIViewController, AVAudioPlayerDelegate {
             
             closeButton.topAnchor.constraint(equalTo: holder.topAnchor, constant: 20),
             closeButton.leadingAnchor.constraint(equalTo: holder.leadingAnchor, constant: 20)
-            
         ])
         
-        let track = tracks[postition]
+        let track = tracks[position]
         songLabel.text = track.title
         artistLabel.text = track.artist
         
@@ -130,7 +134,6 @@ final class PlayerViewController: UIViewController, AVAudioPlayerDelegate {
         configureProgressView()
         startProgressUpdateTimer()
     }
-    
     
     // MARK: - Components
     
@@ -170,61 +173,54 @@ final class PlayerViewController: UIViewController, AVAudioPlayerDelegate {
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
         button.setTitle("Close", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        button.addTarget(PlayerViewController.self, action: #selector(closeButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
         return button
     }()
+    
     
     let playPauseButton = UIButton()
     let previousTrackButton = UIButton()
     let nextTrackButton = UIButton()
     
-    
     // MARK: - Configuration
     
     private func configure() {
-        let track = tracks[postition]
+        let track = tracks[position]
+        currentTrack = track
         
         guard let url = Bundle.main.url(forResource: track.fileName, withExtension: "mp3") else {
             print("Failed to retrieve URL for the audio file.")
             return
         }
         
-        do {
-            try AVAudioSession.sharedInstance().setMode(.default)
-            try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
-            
-            player = try AVAudioPlayer(contentsOf: url)
-            
-            guard let player = player else {
-                print("Failed to create AVAudioPlayer.")
-                return
-            }
-            
-            player.play()
-            player.volume = 0.1
-            
-        } catch {
-            print("Error initializing AVAudioPlayer: \(error)")
-        }
+        let asset = AVAsset(url: url)
+        let duration = asset.duration.seconds
+        let formattedDuration = TimeInterval.stringFromTimeInterval(duration)
+        songDurationLabel.text = formattedDuration
+        
+        audioPlayerManager.loadAudio(with: url)
+        audioPlayerManager.play()
+        audioPlayerManager.volume = 0.1
     }
     
-    private func configureProgressView() {
-        guard let player = player else {
-            return
-        }
+    
+    func updateProgressView() {
         
-        progressView.progress = 0
-        
-        let duration = player.duration
-        let currentTime = player.currentTime
+        let duration = audioPlayerManager.duration
+        let currentTime = audioPlayerManager.currentTime
         let progress = Float(currentTime / duration)
         progressView.setProgress(progress, animated: true)
         
-        songDurationLabel.text = TimeInterval.stringFromTimeInterval(duration)
         currentTimeLabel.text = TimeInterval.stringFromTimeInterval(currentTime)
     }
     
-    private func startProgressUpdateTimer() {
+    private func configureProgressView() {
+        guard let audioPlayer = audioPlayerManager.audioPlayer else {
+            return
+        }
+    }
+    
+    func startProgressUpdateTimer() {
         updateProgressView()
         
         progressUpdateTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
@@ -232,64 +228,42 @@ final class PlayerViewController: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
-    private func updateProgressView() {
-        guard let player = player else {
-            return
-        }
-        
-        let duration = player.duration
-        let currentTime = player.currentTime
-        let progress = Float(currentTime / duration)
-        progressView.setProgress(progress, animated: true)
-        
-        currentTimeLabel.text = TimeInterval.stringFromTimeInterval(currentTime)
-    }
-    
     @objc func didTapPlayPauseButton() {
-        if let player = player {
-            if player.isPlaying {
-                player.pause()
-                playPauseButton.setBackgroundImage(UIImage(systemName: "play"), for: .normal)
-            } else {
-                player.play()
-                playPauseButton.setBackgroundImage(UIImage(systemName: "pause"), for: .normal)
-            }
-            configureProgressView()
+        if audioPlayerManager.isPlaying {
+            audioPlayerManager.pause()
+            playPauseButton.setBackgroundImage(UIImage(systemName: "play"), for: .normal)
+        } else {
+            audioPlayerManager.play()
+            playPauseButton.setBackgroundImage(UIImage(systemName: "pause"), for: .normal)
         }
+        configureProgressView()
     }
     
     @objc func didTapPreviousTrackButton() {
-        player?.stop()
+        audioPlayerManager.stop()
         
-        if postition == 0 {
-            postition = tracks.count - 1
+        if position == 0 {
+            position = tracks.count - 1
         } else {
-            postition -= 1
+            position -= 1
         } // переключается на предыдущий трек или на самый последний, если нажали на первом треке
         
         configure()
         setupUI()
         configureProgressView()
-        player?.play()
+        audioPlayerManager.play()
     }
     
     @objc func didTapNextTrackButton() {
-        player?.stop()
-        postition = (postition + 1) % tracks.count // переключается на следующий трек или на самый первый, если нажали на последнем треке
+        audioPlayerManager.stop()
+        position = (position + 1) % tracks.count // переключается на следующий трек или на самый первый, если нажали на последнем треке
         configure()
         setupUI()
         configureProgressView()
-        player?.play()
+        audioPlayerManager.play()
     }
     
-    // автоматически воспроизводит следующий трек, когда заканчивается текущий
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        if flag {
-            didTapNextTrackButton()
-        }
+    @objc func closeButtonTapped() {
+        dismiss(animated: true, completion: nil)
     }
-    
-    @objc private func closeButtonTapped() {
-            dismiss(animated: true, completion: nil)
-        }
 }

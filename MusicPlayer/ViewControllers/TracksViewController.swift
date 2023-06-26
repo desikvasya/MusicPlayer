@@ -14,7 +14,7 @@ final class TracksViewController: UIViewController, UITableViewDataSource, UITab
     private let tableView = UITableView()
     private let musicData = MusicData.shared
     private var currentTrackIndex: Int = 0
-
+    private let audioPlayer = AudioPlayerManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,25 +45,27 @@ final class TracksViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-
+        
         let position = indexPath.row
-
+        
         if position == currentTrackIndex {
-            // The selected track is the currently playing track
-            let playerVC = PlayerViewController()
-            playerVC.postition = currentTrackIndex
-            playerVC.tracks = musicData.tracks
-            present(playerVC, animated: true)
+            // если выбранный трек уже играет
+            if audioPlayer.isPlaying {
+                audioPlayer.pause()
+            } else {
+                audioPlayer.play()
+            }
         } else {
-            // The selected track is different from the currently playing track
+            // если выбрать другой трек, который не воспроизводится
+            currentTrackIndex = position // обновляет индекс трека
+            audioPlayer.playTrack(at: position, tracks: musicData.tracks)
+            
             let playerVC = PlayerViewController()
-            playerVC.postition = position
+            playerVC.position = currentTrackIndex
             playerVC.tracks = musicData.tracks
-            currentTrackIndex = position // Update the current track index
             present(playerVC, animated: true)
         }
     }
-
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "TracksViewCell"
