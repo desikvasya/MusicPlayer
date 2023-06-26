@@ -10,7 +10,7 @@ import Foundation
 // MARK: - Список песен, куда можно добавлять новые треки и менять информацию о существующих
 
 class MusicData {
-    static let shared = MusicData() 
+    static let shared = MusicData()
     
     let tracks: [Track] = [
         Track(title: "No Roots", artist: "Alice Merton", duration: 237.11, fileName: "Alice Merton - No Roots"),

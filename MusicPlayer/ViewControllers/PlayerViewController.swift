@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - PlayerViewController
 
-final class PlayerViewController: UIViewController {
+final class PlayerViewController: UIViewController, AVAudioPlayerDelegate {
     
     // MARK: Properties
     
@@ -19,7 +19,6 @@ final class PlayerViewController: UIViewController {
     public var postition: Int = 0
     public var tracks: [Track] = []
     private var progressView: UIProgressView!
-    
     
     var player: AVAudioPlayer?
     var holder: UIView! = UIView()
@@ -34,6 +33,8 @@ final class PlayerViewController: UIViewController {
         
         configure()
         setupUI()
+        
+        player?.delegate = self
     }
     
     // MARK: - UI Setup
@@ -50,6 +51,7 @@ final class PlayerViewController: UIViewController {
         holder.addSubview(songDurationLabel)
         holder.addSubview(currentTimeLabel)
         
+        holder.addSubview(closeButton)
         
         // ProgressView
         progressView = UIProgressView(progressViewStyle: .default)
@@ -61,14 +63,20 @@ final class PlayerViewController: UIViewController {
         holder.addSubview(progressView)
         
         holder.translatesAutoresizingMaskIntoConstraints = false
+        
         songLabel.translatesAutoresizingMaskIntoConstraints = false
         artistLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         playPauseButton.translatesAutoresizingMaskIntoConstraints = false
         previousTrackButton.translatesAutoresizingMaskIntoConstraints = false
         nextTrackButton.translatesAutoresizingMaskIntoConstraints = false
+        
         progressView.translatesAutoresizingMaskIntoConstraints = false
+        
         songDurationLabel.translatesAutoresizingMaskIntoConstraints = false
         currentTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             holder.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -100,7 +108,10 @@ final class PlayerViewController: UIViewController {
             currentTimeLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             
             songDurationLabel.bottomAnchor.constraint(equalTo: artistLabel.bottomAnchor, constant: 45),
-            songDurationLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+            songDurationLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            
+            closeButton.topAnchor.constraint(equalTo: holder.topAnchor, constant: 20),
+            closeButton.leadingAnchor.constraint(equalTo: holder.leadingAnchor, constant: 20)
             
         ])
         
@@ -154,6 +165,14 @@ final class PlayerViewController: UIViewController {
         return label
     }()
     
+    private let closeButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "xmark"), for: .normal)
+        button.setTitle("Close", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        button.addTarget(PlayerViewController.self, action: #selector(closeButtonTapped), for: .touchUpInside)
+        return button
+    }()
     
     let playPauseButton = UIButton()
     let previousTrackButton = UIButton()
@@ -203,18 +222,15 @@ final class PlayerViewController: UIViewController {
         
         songDurationLabel.text = TimeInterval.stringFromTimeInterval(duration)
         currentTimeLabel.text = TimeInterval.stringFromTimeInterval(currentTime)
-        
-        
     }
     
     private func startProgressUpdateTimer() {
-        updateProgressView() 
+        updateProgressView()
         
         progressUpdateTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
             self?.updateProgressView()
         }
     }
-
     
     private func updateProgressView() {
         guard let player = player else {
@@ -243,28 +259,37 @@ final class PlayerViewController: UIViewController {
     }
     
     @objc func didTapPreviousTrackButton() {
-        if postition > 0 {
-            postition = postition - 1
-            player?.stop()
-            for subview in holder.subviews {
-                subview.removeFromSuperview()
-            }
-            configure()
-            setupUI()
-            configureProgressView()
-        }
+        player?.stop()
+        
+        if postition == 0 {
+            postition = tracks.count - 1
+        } else {
+            postition -= 1
+        } // переключается на предыдущий трек или на самый последний, если нажали на первом треке
+        
+        configure()
+        setupUI()
+        configureProgressView()
+        player?.play()
     }
     
     @objc func didTapNextTrackButton() {
-        if postition < (tracks.count - 1) {
-            postition = postition + 1
-            player?.stop()
-            for subview in holder.subviews {
-                subview.removeFromSuperview()
-            }
-            configure()
-            setupUI()
-            configureProgressView()
+        player?.stop()
+        postition = (postition + 1) % tracks.count // переключается на следующий трек или на самый первый, если нажали на последнем треке
+        configure()
+        setupUI()
+        configureProgressView()
+        player?.play()
+    }
+    
+    // автоматически воспроизводит следующий трек, когда заканчивается текущий
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        if flag {
+            didTapNextTrackButton()
         }
     }
+    
+    @objc private func closeButtonTapped() {
+            dismiss(animated: true, completion: nil)
+        }
 }
